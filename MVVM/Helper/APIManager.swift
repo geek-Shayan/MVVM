@@ -24,7 +24,10 @@ final class APIManager {
     private init() {} // Singleton Design pattern
     
     func fetchProducts(completion: @escaping handler) {
-        guard let url = URL(string: Constant.API.productURL) else { return }
+        guard let url = URL(string: Constant.API.productURL) else {
+            completion(.failure(.invalidURL))
+            return
+        }
         
         // Background Task 
         URLSession.shared.dataTask(with: url) { data, response, error in
